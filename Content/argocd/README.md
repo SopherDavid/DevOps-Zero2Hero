@@ -49,9 +49,16 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 Visit: http://localhost:8080
 
 ### 3. Login to ArgoCD:
+Fetch your initial password: 
+```bash
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
+```
+Login:
 ```bash
 argocd login localhost:8080 --username admin --password <initial_password>
 ```
+Find your initial password at: kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
+
 ### 4. Apply the ArgoCD Application manifest:
 ```bash
 kubectl apply -f argocd/application.yaml
